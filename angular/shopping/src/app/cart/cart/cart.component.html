@@ -1,0 +1,68 @@
+<div class="cart-wrapper container">
+
+    <div class="message-wrapper container" style="min-height: 60px;">
+        <div *ngIf="successMsg" class="alert alert-success " role="alert">
+            {{successMsg}}
+        </div>
+        <div *ngIf="errorMsg" class="alert alert-danger " role="alert">
+            {{errorMsg}}
+        </div>
+    </div>
+
+    <div class="cart-content-wrapper bg-light">
+        <div class="cart-content container d-flex justify-content-center">
+            <div *ngIf="loading" class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+
+            <div class="container">
+                
+                <div class="row">
+                    <div class="col">
+                        <div>
+                            <div *ngIf="!cartItems.length">
+                                <h5>Warenkorb ist leer!</h5>
+                            </div>
+                            <ul class="list-group">
+                                <div *ngFor="let cartItem of cartItems">
+                                    <li class="list-group-item">
+                                        <app-cart-item [cartItem]='cartItem' (changed)="changeEvent($event)"
+                                            (deleted)="deleteEvent($event)"></app-cart-item>
+                                    </li>
+                                    <hr>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Gesamtsumme</h5>
+                                <div *ngIf="priceloading" class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div *ngIf="!priceloading">
+                                    <div class="card-text">
+                                        <span>Zwischensumme: {{price | number : '1.2-2'}} €</span>
+                                        <br>
+                                        <span>MwSt.: {{vat | number : '1.2-2'}} €</span>
+                                        <br>
+                                        <span>Lieferung: gratis</span>
+                                        <hr>
+                                        <span class="font-weight-bold">Gesamtsumme: {{pricetotal | number : '1.2-2'}}
+                                            €</span>
+                                    </div>
+                                    <button class="mt-3 btn btn-primary " disabled>Zur Kasse</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
